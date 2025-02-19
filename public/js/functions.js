@@ -2,7 +2,7 @@
  * CONFIGURACIÓN
  */
 const API_URL = 'https://tunnel.chicascoyotelastrululu.shop'; // API Administradora.
-const API_KEY = 'eyJhbGciOiJIUzI1NiJ9.NzY5NTY5NTkwNzpBQUdxTXc0bkowTHdLM25vX3JCUDFaLXNRUVRwOEVnT1YtRQ.jM1bEeZX7MLNsZYnLEQcDGFzDnmHanOwG8i8V-Xwt3E'; // API Administradora.
+const API_KEY = 'bffb82db-1d5b-477a-9bcf-a73b8ea5d561'; // API Administradora.
 const JWT_SIGN = 'BIGPHISHERMAN';
 
 const PRECIO_BASE = 47500
